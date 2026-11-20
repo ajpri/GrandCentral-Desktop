@@ -1,0 +1,10 @@
+__pycache__/
+*.pyc
+/Gnome-extension/schemas/gschemas.compiled
+/Gnome-extension/docs/*.png
+/Gnome-extension/docs/*results.json
+/dist/
+/releases/
+*.zip
+.env
+.env.*

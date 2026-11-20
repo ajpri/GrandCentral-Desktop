@@ -1,0 +1,13 @@
+{
+  "uuid": "grand-central-desktop@grandcentral-desktop",
+  "name": "Grand Central Desktop",
+  "description": "A desktop carousel with three visible panels: recent programs, desktop icons, recent documents, a calculator, a web browser, all apps, and an automatically saved plain-text note. Reorder and customize each panel independently.",
+  "shell-version": [
+    "49",
+    "50",
+    "51"
+  ],
+  "settings-schema": "org.gnome.shell.extensions.grand-central-desktop",
+  "version": 1,
+  "version-name": "0.1"
+}

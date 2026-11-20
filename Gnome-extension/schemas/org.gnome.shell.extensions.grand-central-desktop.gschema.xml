@@ -1,0 +1,340 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<schemalist>
+  <schema id="org.gnome.shell.extensions.grand-central-desktop" path="/org/gnome/shell/extensions/grand-central-desktop/">
+    <child name="programs" schema="org.gnome.shell.extensions.grand-central-desktop.programs" />
+    <child name="desktop" schema="org.gnome.shell.extensions.grand-central-desktop.desktop" />
+    <child name="documents" schema="org.gnome.shell.extensions.grand-central-desktop.documents" />
+    <child name="calculator" schema="org.gnome.shell.extensions.grand-central-desktop.calculator" />
+    <key name="panel-width" type="i">
+      <default>420</default>
+      <summary>Preferred width of each panel</summary>
+      <range min="220" max="900" />
+    </key>
+    <key name="panel-height" type="i">
+      <default>660</default>
+      <summary>Preferred height of each panel</summary>
+      <range min="420" max="1200" />
+    </key>
+    <key name="panel-gap" type="i">
+      <default>24</default>
+      <summary>Space between panels</summary>
+      <range min="0" max="100" />
+    </key>
+    <key name="outer-margin" type="i">
+      <default>36</default>
+      <summary>Margin around panels</summary>
+      <range min="0" max="200" />
+    </key>
+    <key name="monitor" type="i">
+      <default>-1</default>
+      <summary>Monitor index; -1 follows the primary monitor, -2 shows all monitors</summary>
+      <range min="-2" max="32" />
+    </key>
+    <key name="monitor-id" type="s"><default>''</default><summary>Stable identity of the selected display</summary></key>
+    <key name="monitor-layouts" type="s"><default>'{}'</default><summary>Independent saved carousel positions by display identity</summary></key>
+    <key name="monitor-browser-overrides" type="s"><default>'{}'</default><summary>Browser preferences overridden independently for each display</summary></key>
+    <key name="desktop-directory" type="s">
+      <default>''</default>
+      <summary>Custom absolute Desktop path; blank uses the XDG Desktop folder</summary>
+    </key>
+    <key name="show-hidden" type="b">
+      <default>false</default>
+      <summary>Show hidden Desktop files</summary>
+    </key>
+    <key name="desktop-sort" type="s">
+      <default>'name'</default>
+      <summary>Desktop icon order</summary>
+      <choices>
+        <choice value="name" />
+        <choice value="modified" />
+      </choices>
+    </key>
+    <key name="recent-programs" type="as">
+      <default>[]</default>
+      <summary>Most recently used application IDs, newest first</summary>
+    </key>
+    <key name="grand-central-desktop-show-desktop" type="as">
+      <default>['&lt;Super&gt;&lt;Alt&gt;d']</default>
+      <summary>Show or restore desktop</summary>
+    </key>
+    <key name="grand-central-desktop-next" type="as">
+      <default>['&lt;Super&gt;&lt;Control&gt;&lt;Alt&gt;Right']</default>
+      <summary>Show next panels</summary>
+    </key>
+    <key name="grand-central-desktop-previous" type="as">
+      <default>['&lt;Super&gt;&lt;Control&gt;&lt;Alt&gt;Left']</default>
+      <summary>Show previous panels</summary>
+    </key>
+    <child name="browser" schema="org.gnome.shell.extensions.grand-central-desktop.browser" />
+    <child name="apps" schema="org.gnome.shell.extensions.grand-central-desktop.apps" />
+    <child name="notes" schema="org.gnome.shell.extensions.grand-central-desktop.notes" />
+    <key name="panel-order" type="as">
+      <default>['programs', 'desktop', 'documents', 'calculator', 'browser', 'apps', 'notes']</default>
+      <summary>Left-to-right panel order in the carousel</summary>
+    </key>
+    <key name="show-calendar" type="b">
+      <default>true</default>
+      <summary>Show the calendar pill</summary>
+    </key>
+    <key name="calendar-days" type="i">
+      <default>2</default>
+      <summary>Calendar days including today</summary>
+      <range min="1" max="366" />
+    </key>
+    <key name="calendar-max-events" type="i">
+      <default>3</default>
+      <summary>Maximum visible calendar events</summary>
+      <range min="1" max="3" />
+    </key>
+  </schema>
+  <schema id="org.gnome.shell.extensions.grand-central-desktop.programs" path="/org/gnome/shell/extensions/grand-central-desktop/programs/">
+    <key name="enabled" type="b">
+      <default>true</default>
+      <summary>Include this panel in the carousel</summary>
+    </key>
+    <key name="title" type="s">
+      <default>'Recent Programs'</default>
+      <summary>Panel heading</summary>
+    </key>
+    <key name="background-color" type="s">
+      <default>'#181818'</default>
+      <summary>Solid panel color in #RRGGBB format</summary>
+    </key>
+    <key name="corner-radius" type="i">
+      <default>32</default>
+      <summary>Panel corner radius</summary>
+      <range min="0" max="80" />
+    </key>
+    <key name="columns" type="i">
+      <default>4</default>
+      <summary>Preferred grid columns; adapts to available space</summary>
+      <range min="1" max="8" />
+    </key>
+    <key name="rows" type="i">
+      <default>4</default>
+      <summary>Preferred grid rows; adapts to available space</summary>
+      <range min="1" max="8" />
+    </key>
+    <key name="icon-size" type="i">
+      <default>48</default>
+      <summary>Icon size in logical pixels</summary>
+      <range min="24" max="96" />
+    </key>
+    <key name="show-labels" type="b">
+      <default>true</default>
+      <summary>Show icon labels</summary>
+    </key>
+    <key name="item-limit" type="i">
+      <default>100</default>
+      <summary>Maximum number of items across all pages</summary>
+      <range min="8" max="500" />
+    </key>
+  </schema>
+  <schema id="org.gnome.shell.extensions.grand-central-desktop.desktop" path="/org/gnome/shell/extensions/grand-central-desktop/desktop/">
+    <key name="enabled" type="b">
+      <default>true</default>
+      <summary>Include this panel in the carousel</summary>
+    </key>
+    <key name="title" type="s">
+      <default>'Desktop'</default>
+      <summary>Panel heading</summary>
+    </key>
+    <key name="background-color" type="s">
+      <default>'#181818'</default>
+      <summary>Solid panel color in #RRGGBB format</summary>
+    </key>
+    <key name="corner-radius" type="i">
+      <default>32</default>
+      <summary>Panel corner radius</summary>
+      <range min="0" max="80" />
+    </key>
+    <key name="columns" type="i">
+      <default>4</default>
+      <summary>Preferred grid columns; adapts to available space</summary>
+      <range min="1" max="8" />
+    </key>
+    <key name="rows" type="i">
+      <default>4</default>
+      <summary>Preferred grid rows; adapts to available space</summary>
+      <range min="1" max="8" />
+    </key>
+    <key name="icon-size" type="i">
+      <default>48</default>
+      <summary>Icon size in logical pixels</summary>
+      <range min="24" max="96" />
+    </key>
+    <key name="show-labels" type="b">
+      <default>true</default>
+      <summary>Show icon labels</summary>
+    </key>
+    <key name="item-limit" type="i">
+      <default>100</default>
+      <summary>Maximum number of items across all pages</summary>
+      <range min="8" max="500" />
+    </key>
+    <key name="show-mounts" type="b">
+      <default>false</default>
+      <summary>Include mounted drives in the Desktop panel</summary>
+    </key>
+  </schema>
+  <schema id="org.gnome.shell.extensions.grand-central-desktop.documents" path="/org/gnome/shell/extensions/grand-central-desktop/documents/">
+    <key name="enabled" type="b">
+      <default>true</default>
+      <summary>Include this panel in the carousel</summary>
+    </key>
+    <key name="title" type="s">
+      <default>'Recent Documents'</default>
+      <summary>Panel heading</summary>
+    </key>
+    <key name="background-color" type="s">
+      <default>'#181818'</default>
+      <summary>Solid panel color in #RRGGBB format</summary>
+    </key>
+    <key name="corner-radius" type="i">
+      <default>32</default>
+      <summary>Panel corner radius</summary>
+      <range min="0" max="80" />
+    </key>
+    <key name="columns" type="i">
+      <default>4</default>
+      <summary>Preferred grid columns; adapts to available space</summary>
+      <range min="1" max="8" />
+    </key>
+    <key name="rows" type="i">
+      <default>4</default>
+      <summary>Preferred grid rows; adapts to available space</summary>
+      <range min="1" max="8" />
+    </key>
+    <key name="icon-size" type="i">
+      <default>48</default>
+      <summary>Icon size in logical pixels</summary>
+      <range min="24" max="96" />
+    </key>
+    <key name="show-labels" type="b">
+      <default>true</default>
+      <summary>Show icon labels</summary>
+    </key>
+    <key name="item-limit" type="i">
+      <default>100</default>
+      <summary>Maximum number of items across all pages</summary>
+      <range min="8" max="500" />
+    </key>
+  </schema>
+  <schema id="org.gnome.shell.extensions.grand-central-desktop.calculator" path="/org/gnome/shell/extensions/grand-central-desktop/calculator/">
+    <key name="show-advanced" type="b">
+      <default>false</default>
+      <summary>Show advanced calculator controls</summary>
+    </key>
+    <key name="enabled" type="b">
+      <default>true</default>
+      <summary>Include this panel in the carousel</summary>
+    </key>
+    <key name="title" type="s">
+      <default>'Calculator'</default>
+      <summary>Panel heading</summary>
+    </key>
+    <key name="background-color" type="s">
+      <default>'#181818'</default>
+      <summary>Solid panel color in #RRGGBB format</summary>
+    </key>
+    <key name="corner-radius" type="i">
+      <default>32</default>
+      <summary>Panel corner radius</summary>
+      <range min="0" max="80" />
+    </key>
+  </schema>
+  <schema id="org.gnome.shell.extensions.grand-central-desktop.apps" path="/org/gnome/shell/extensions/grand-central-desktop/apps/">
+    <key name="enabled" type="b">
+      <default>true</default>
+      <summary>Include this panel in the carousel</summary>
+    </key>
+    <key name="title" type="s">
+      <default>'All Apps'</default>
+      <summary>Panel heading</summary>
+    </key>
+    <key name="background-color" type="s">
+      <default>'#181818'</default>
+      <summary>Solid panel color in #RRGGBB format</summary>
+    </key>
+    <key name="corner-radius" type="i">
+      <default>32</default>
+      <summary>Panel corner radius</summary>
+      <range min="0" max="80" />
+    </key>
+    <key name="columns" type="i">
+      <default>4</default>
+      <summary>Preferred grid columns; adapts to available space</summary>
+      <range min="1" max="8" />
+    </key>
+    <key name="rows" type="i">
+      <default>4</default>
+      <summary>Preferred grid rows; adapts to available space</summary>
+      <range min="1" max="8" />
+    </key>
+    <key name="icon-size" type="i">
+      <default>48</default>
+      <summary>Icon size in logical pixels</summary>
+      <range min="24" max="96" />
+    </key>
+    <key name="show-labels" type="b">
+      <default>true</default>
+      <summary>Show icon labels</summary>
+    </key>
+  </schema>
+  <schema id="org.gnome.shell.extensions.grand-central-desktop.notes" path="/org/gnome/shell/extensions/grand-central-desktop/notes/">
+    <key name="enabled" type="b"><default>true</default><summary>Include Quick Notes in the carousel</summary></key>
+    <key name="title" type="s"><default>'Quick Notes'</default><summary>Panel heading</summary></key>
+    <key name="background-color" type="s"><default>'#181818'</default><summary>Solid panel color in #RRGGBB format</summary></key>
+    <key name="corner-radius" type="i"><default>32</default><range min="0" max="80"/><summary>Panel corner radius</summary></key>
+    <key name="preview" type="b"><default>false</default><summary>Unused saved preference; notes are always plain text</summary></key>
+    <key name="font-size" type="i"><default>14</default><range min="8" max="36"/><summary>Note text size in logical pixels</summary></key>
+  </schema>
+  <schema id="org.gnome.shell.extensions.grand-central-desktop.browser" path="/org/gnome/shell/extensions/grand-central-desktop/browser/">
+    <key name="enabled" type="b">
+      <default>true</default>
+      <summary>Include this panel in the carousel</summary>
+    </key>
+    <key name="title" type="s">
+      <default>'Web Browser'</default>
+      <summary>Panel heading</summary>
+    </key>
+    <key name="background-color" type="s">
+      <default>'#181818'</default>
+      <summary>Solid panel color in #RRGGBB format</summary>
+    </key>
+    <key name="corner-radius" type="i">
+      <default>32</default>
+      <summary>Panel corner radius</summary>
+      <range min="0" max="80" />
+    </key>
+    <key name="home-url" type="s">
+      <default>'about:blank'</default>
+      <summary>Home URL for the browser panel (http or https)</summary>
+    </key>
+    <key name="zoom-percent" type="i">
+      <default>100</default>
+      <summary>Browser page zoom as a percentage</summary>
+      <range min="25" max="300" />
+    </key>
+    <key name="show-controls" type="b">
+      <default>true</default>
+      <summary>Show the browser navigation toolbar</summary>
+    </key>
+    <key name="show-color-picker" type="b">
+      <default>true</default>
+      <summary>Show the Match page color button in the browser toolbar</summary>
+    </key>
+    <key name="auto-match-page-color" type="b">
+      <default>false</default>
+      <summary>Automatically match the browser frame to the page background after navigation</summary>
+    </key>
+    <key name="expanded" type="b">
+      <default>false</default>
+      <summary>Expand the browser across all three panel slots</summary>
+    </key>
+    <key name="request-mobile-site" type="b">
+      <default>false</default>
+      <summary>Request mobile pages using a mobile user agent; changing this reloads the current page</summary>
+    </key>
+  </schema>
+</schemalist>
